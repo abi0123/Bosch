@@ -5,7 +5,7 @@ class BankAccount:
         self.account_number = account_number
         self.account_holder = account_holder
         self.balance = balance
-        self.transactions = []  # keep track of deposits/withdrawals
+        self.transactions = [] 
 
     def deposit(self, amount):
         if amount <= 0:
@@ -24,13 +24,13 @@ class BankAccount:
             return
         self.balance -= amount
         self.transactions.append((datetime.datetime.now(), "Withdraw", amount, self.balance))
-        print(f"✅ Withdrew {amount}. New balance: {self.balance}")
+        print(f"Withdrew {amount}. New balance: {self.balance}")
 
     def get_balance(self):
         return self.balance
 
     def print_transactions(self):
-        print(f"\n📒 Transaction history for {self.account_holder}:")
+        print(f"\nTransaction history for {self.account_holder}:")
         for t in self.transactions:
             time, ttype, amt, bal = t
             print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {ttype} {amt} | Balance: {bal}")
@@ -47,7 +47,7 @@ class SavingsAccount(BankAccount):
     def apply_interest(self):
         interest = self.balance * self.interest_rate
         self.deposit(interest)
-        print(f"💰 Interest applied at {self.interest_rate*100}%: {interest}")
+        print(f"Interest applied : {interest}")
 
 
 class CurrentAccount(BankAccount):
@@ -76,7 +76,7 @@ class FixedDepositAccount(BankAccount):
     def withdraw(self, amount):
         elapsed_years = (datetime.datetime.now() - self.opened_on).days / 365
         if elapsed_years < self.lock_in_years:
-            print("Withdrawal not allowed. Locked for {self.lock_in_years} years.")
+            print("not allowed. Locked for {self.lock_in_years} years.")
             return
         super().withdraw(amount)
 
@@ -142,4 +142,5 @@ print("Fund Transfer Demo")
 bank.transfer_funds(savings.account_number, current.account_number, 200)
 savings.print_transactions()
 current.print_transactions()
+
 
